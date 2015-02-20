@@ -113,7 +113,10 @@ function searchTwitter(d) {
 
                 // When specifying since_id API should only return newer tweets, 
                 // but sometimes it returns the tweet with id==since_id. Weird :/
-                if(tweet.id == since_id) d.reject('No new tweets.');
+                if(tweet.id == since_id) { 
+                    d.reject('No new tweets.');
+                    return;
+                }
 
                 // Update values for API.
                 max_id = tweet.id;
