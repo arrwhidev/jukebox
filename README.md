@@ -2,9 +2,9 @@
 
 Jukebox lets people add songs to a Spotify playlist by tweeting them.
 
-Once Jukebox is configured and running it will search for tweets that start with the configured hashtag. 
+Once Jukebox is configured and running it will search for tweets that start with the configured hashtag.
 
-For example, someone could tweet ```#aswjukebox led zeppelin kashmir``` and Jukebox will add it to the configured Spotify playlist. 
+For example, someone could tweet ```#aswjukebox led zeppelin kashmir``` and Jukebox will add it to the configured Spotify playlist.
 Tweeting ```#aswjukebox kashmir``` would probably work too but being more specific will help to ensure the correct song gets added.
 
 ## Requirements
@@ -29,6 +29,8 @@ Tweeting ```#aswjukebox kashmir``` would probably work too but being more specif
 
 ## Notes
 
-I'm not a JavaScript developer. I started this project to improve my JS skills. I'm definitely open to constructive criticisms and advice on how I can improve.
+I'm not primarily a JavaScript developer. I started this project to improve my JS skills. I'm definitely open to constructive criticisms and advice on how I can improve.
+
+There's loads left to do on this project so feel free to contribute!
 
 Add songs to my playlist using ```#aswjukebox``` :)
