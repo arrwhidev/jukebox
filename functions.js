@@ -13,7 +13,7 @@ module.exports = {
     },
 
     readLastTweetId : function() {
-        return Q.nfcall(fs.readFile, config.app.last_tweet_id_file, 'utf-8');
+        return fs.readFileSync(config.app.last_tweet_id_file, 'utf-8');
     },
 
     createFileIfNotExists : function() {
