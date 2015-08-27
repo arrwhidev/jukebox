@@ -5,7 +5,7 @@ config.twitter = {};
 
 config.app.port = 8888;
 config.app.polling_interval_in_seconds = 5;
-config.app.last_tweet_id_file = '/home/<youruser>/jukebox-last-id';
+config.app.last_tweet_id_file = 'jukebox-last-id';
 
 config.spotify.redirect_uri = 'http://localhost:8888/callback';
 config.spotify.scopes = 'playlist-modify playlist-modify-private';

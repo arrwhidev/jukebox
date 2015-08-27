@@ -5,24 +5,29 @@
 var Q = require('q');
 var fs = require('fs');
 var config = require('./config');
+var osenv = require('osenv');
+
+var lastTweetIdFilePath = function() {
+    return osenv.home() + '/' + config.app.last_tweet_id_file;
+};
 
 module.exports = {
 
     saveLastTweetId : function(id) {
-        return Q.nfcall(fs.writeFile, config.app.last_tweet_id_file, id);
+        return Q.nfcall(fs.writeFile, lastTweetIdFilePath(), id);
     },
 
     readLastTweetId : function() {
-        return fs.readFileSync(config.app.last_tweet_id_file, 'utf-8');
+        return fs.readFileSync(lastTweetIdFilePath(), 'utf-8');
     },
 
     createFileIfNotExists : function() {
         var d = Q.defer();
 
-        if (fs.existsSync(config.app.last_tweet_id_file)) {
+        if (fs.existsSync(lastTweetIdFilePath())) {
             d.resolve();
         } else {
-            fs.writeFileSync(config.app.last_tweet_id_file, '0');
+            fs.writeFileSync(lastTweetIdFilePath(), '0');
             d.resolve();
         }
 
