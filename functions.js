@@ -6,12 +6,33 @@ var Q = require('q');
 var fs = require('fs');
 var config = require('./config');
 var osenv = require('osenv');
+var _ = require('lodash');
 
 var lastTweetIdFilePath = function() {
     return osenv.home() + '/' + config.app.last_tweet_id_file;
 };
 
+var contains = function(value, array) {
+    return  _.some(array, function(entry) {
+        return value === entry;
+    });
+}
+
 module.exports = {
+
+    isTweetByWhitelistedUser : function(twitterHandle, whitelist) {
+        if(whitelist.length == 0) return true;
+        return contains(twitterHandle, whitelist);
+    },
+
+    isTweetByBlacklistedUser : function(twitterHandle, blacklist) {
+        if(blacklist.length == 0) return false;
+        return contains(twitterHandle, blacklist);
+    },
+
+    doesTweetStartWithHashtag : function(tweetText, hashtag) {
+        return tweetText.indexOf(hashtag) == 0;
+    },
 
     saveLastTweetId : function(id) {
         return Q.nfcall(fs.writeFile, lastTweetIdFilePath(), id);

@@ -125,8 +125,9 @@ function _writeLastTweetIdToFile(id) {
 }
 
 function _isTweetValid(tweet) {
-    if(!_doesTweetStartWithHashtag(tweet.text)) return false;
-    if(!_isTweetByWhitelistedUser(tweet.user.screen_name)) return false;
+    if(!f.doesTweetStartWithHashtag(tweet.text, config.twitter.hashtag)) return false;
+    if(!f.isTweetByWhitelistedUser(tweet.user.screen_name, config.twitter.handleWhitelist)) return false;
+    if(f.isTweetByBlacklistedUser(tweet.user.screen_name, config.twitter.handleBlacklist)) return false;
     if(parseInt(tweet.id) === parseInt(lastTweetId)) return false;
     return true;
 }
@@ -134,20 +135,6 @@ function _isTweetValid(tweet) {
 function _prepareTweetTextForSpotify(tweetText) {
     var parsed = tweetText.replace(config.twitter.hashtag + ' ', ''); // Remove hashtag.
     return parsed;
-}
-
-function _doesTweetStartWithHashtag(tweetText) {
-    if(tweetText.indexOf(config.twitter.hashtag) == 0) return true;
-    return false;
-}
-
-function _isTweetByWhitelistedUser(twitterHandle) {
-    var array = config.twitter.handleWhitelist;
-    if(array.length == 0) return true;
-    for (var i in array) {
-        if(array[i] == twitterHandle) return true;
-    }
-    return false;
 }
 
 function _logTweetDetails(tweet) {

@@ -22,11 +22,17 @@ config.twitter.access_token = '';
 config.twitter.access_token_secret = '';
 
 /*
-  Optionally specify a whitelist of twitter handles so random people can't add songs to playlist.
+  Specify a whitelist of twitter handles so random people can't add songs to playlist.
   e.g. ['my_twitter_handle', 'another_user', 'foo_bar'];
 
   Empty whitelist will allow tweets by all twitter users.
 */
 config.twitter.handleWhitelist = [];
+
+/*
+  Specify a list of twitter handles to ignore tweets from.
+  e.g. ['naughty_user1, 'naughty_user2'];
+*/
+config.twitter.handleBlacklist = [];
 
 module.exports = config;
