@@ -97,8 +97,8 @@ function processTweet(tweet) {
     if(!_isTweetValid(tweet)) {
         d.reject('Tweet is not valid');
     } else {
-        _logTweetDetails(tweet);
-        var tweetText = _prepareTweetTextForSpotify(tweet.text);
+        f.logTweetDetails(tweet);
+        var tweetText = f.prepareTweetTextForSpotify(tweet.text);
         console.log('Searching Spotify for:', tweetText);
 
         Q.fcall(spotifyApi.search, tweetText).then(function(searchResult) {
@@ -130,15 +130,4 @@ function _isTweetValid(tweet) {
     if(f.isTweetByBlacklistedUser(tweet.user.screen_name, config.twitter.handleBlacklist)) return false;
     if(parseInt(tweet.id) === parseInt(lastTweetId)) return false;
     return true;
-}
-
-function _prepareTweetTextForSpotify(tweetText) {
-    var parsed = tweetText.replace(config.twitter.hashtag + ' ', ''); // Remove hashtag.
-    return parsed;
-}
-
-function _logTweetDetails(tweet) {
-    console.log('Found a tweet! Details:');
-    console.log('  User: ' + tweet.user.screen_name);
-    console.log('  Text: ' + tweet.text);
 }

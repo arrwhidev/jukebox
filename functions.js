@@ -20,29 +20,33 @@ var contains = function(value, array) {
 
 module.exports = {
 
-    isTweetByWhitelistedUser : function(twitterHandle, whitelist) {
+    isTweetByWhitelistedUser: function(twitterHandle, whitelist) {
         if(whitelist.length == 0) return true;
         return contains(twitterHandle, whitelist);
     },
 
-    isTweetByBlacklistedUser : function(twitterHandle, blacklist) {
+    isTweetByBlacklistedUser: function(twitterHandle, blacklist) {
         if(blacklist.length == 0) return false;
         return contains(twitterHandle, blacklist);
     },
 
-    doesTweetStartWithHashtag : function(tweetText, hashtag) {
+    prepareTweetTextForSpotify: function(tweetText) {
+        return tweetText.replace(config.twitter.hashtag + ' ', ''); // Remove hashtag.
+    },
+
+    doesTweetStartWithHashtag: function(tweetText, hashtag) {
         return tweetText.indexOf(hashtag) == 0;
     },
 
-    saveLastTweetId : function(id) {
+    saveLastTweetId: function(id) {
         return Q.nfcall(fs.writeFile, lastTweetIdFilePath(), id);
     },
 
-    readLastTweetId : function() {
+    readLastTweetId: function() {
         return fs.readFileSync(lastTweetIdFilePath(), 'utf-8');
     },
 
-    createFileIfNotExists : function() {
+    createFileIfNotExists: function() {
         var d = Q.defer();
 
         if (fs.existsSync(lastTweetIdFilePath())) {
@@ -55,7 +59,13 @@ module.exports = {
         return d.promise;
     },
 
-    generateRandomString : function(length) {
+    logTweetDetails: function(tweet) {
+        console.log('Found a tweet! Details:');
+        console.log('  User: ' + tweet.user.screen_name);
+        console.log('  Text: ' + tweet.text);
+    },
+
+    generateRandomString: function(length) {
         var text = '';
         var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
